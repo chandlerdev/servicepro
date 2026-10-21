@@ -1,0 +1,418 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Brand tokens (CSS variables) → Tailwind theme                       */
+/* ------------------------------------------------------------------ */
+:root {
+  --brand: #0e7c6b;
+  --brand-dark: #0a5c50;
+  --brand-light: #e6f4f1;
+  --ink: #1a2430;
+  --muted: #66748a;
+  --line: #e3e8ef;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --danger: #c93a3a;
+  --warn: #b97a12;
+  --ok: #2e7d32;
+  --sidebar: #122333;
+  --sidebar-ink: #c3cfdb;
+  --radius: 10px;
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-ink: var(--sidebar-ink);
+  --radius-card: var(--radius);
+  --font-sans: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Component classes ported from the prototype                         */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cardhead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--brand);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: var(--brand-dark);
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-sec {
+    background: #fff;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+  .btn-sec:hover {
+    background: #f0f3f7;
+  }
+  .btn-warn {
+    background: #fff4e0;
+    color: var(--warn);
+    border-color: #eed9ac;
+  }
+  .btn-warn:hover {
+    background: #fdebc8;
+  }
+  .btn-dng {
+    background: #fdecec;
+    color: var(--danger);
+    border-color: #f2c7c7;
+  }
+  .btn-dng:hover {
+    background: #f9dcdc;
+  }
+  .btn-ok {
+    background: #e8f4e9;
+    color: var(--ok);
+    border-color: #bfdec2;
+  }
+  .btn-ok:hover {
+    background: #d8ecda;
+  }
+  .btn-sm {
+    padding: 4px 9px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+  .badge-blue {
+    background: #e8eefb;
+    color: #2c56b0;
+  }
+  .badge-teal {
+    background: #e6f4f1;
+    color: #0a6c5c;
+  }
+  .badge-purple {
+    background: #eee5fb;
+    color: #6b3fb2;
+  }
+  .badge-red {
+    background: #fdecec;
+    color: #c93a3a;
+  }
+  .badge-green {
+    background: #e8f4e9;
+    color: #2e7d32;
+  }
+  .badge-grey {
+    background: #f0f0f0;
+    color: #777;
+  }
+  .badge-amber {
+    background: #fff4e0;
+    color: #b97a12;
+  }
+  .pill {
+    display: inline-block;
+    background: #eef1f6;
+    border-radius: 10px;
+    padding: 2px 9px;
+    font-size: 11.5px;
+    color: #48566b;
+    margin: 1px 2px;
+  }
+
+  /* Forms */
+  .input {
+    font-family: inherit;
+    font-size: 13.5px;
+    padding: 8px 10px;
+    border: 1px solid #c9d2de;
+    border-radius: 7px;
+    width: 100%;
+    background: #fff;
+    color: var(--ink);
+  }
+  .input:focus {
+    outline: 2px solid var(--brand);
+    outline-offset: 0;
+    border-color: var(--brand);
+  }
+  .input:disabled,
+  .input[readonly] {
+    background: #f4f6f9;
+    color: var(--muted);
+  }
+  .input-error {
+    border-color: var(--danger);
+  }
+  .flabel {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .checkchip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f2f5f9;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .checkchip.on {
+    background: var(--brand-light);
+    border-color: var(--brand);
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+
+  /* Tables */
+  .dtable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .dtable th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 2px solid var(--line);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .dtable td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .dtable tbody tr:hover td {
+    background: #fafbfd;
+  }
+
+  /* Stats */
+  .statgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .stat .n {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--brand-dark);
+  }
+  .stat .l {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Stops */
+  .stopline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--line);
+    background: #fff;
+  }
+  .stopnum {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stopnum.done {
+    background: #9fb3a8;
+  }
+  .stopnum.late {
+    background: var(--danger);
+  }
+  .eta {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--brand-dark);
+    white-space: nowrap;
+  }
+  .numicon {
+    background: var(--brand);
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    border: 2.5px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+  .numicon.depot {
+    background: var(--sidebar);
+  }
+  .numicon.late {
+    background: var(--danger) !important;
+  }
+  .numicon.done {
+    background: #8aa295 !important;
+  }
+
+  .banner {
+    background: #fff4e0;
+    border: 1px solid #eed9ac;
+    color: #7c5a10;
+    border-radius: 9px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  /* Notifications */
+  .smsrow {
+    display: flex;
+    gap: 12px;
+    padding: 11px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .smsic {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    background: var(--brand-light);
+  }
+  .smsbubble {
+    background: #eef6f4;
+    border: 1px solid #cfe6e1;
+    border-radius: 4px 14px 14px 14px;
+    padding: 9px 12px;
+    font-size: 13px;
+    max-width: 640px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .linklike {
+    color: var(--brand-dark);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .demo-note {
+    font-size: 11.5px;
+    color: #8a96a8;
+    padding: 8px 4px 0;
+  }
+  .empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 30px 10px;
+    font-size: 13.5px;
+  }
+}
+
+/*
+ * Password boxes have their own show/hide eye button (PasswordInput). Microsoft Edge (and old IE) add a second,
+ * built-in "reveal" eye to every password field — hide the browser's one so only ours is shown.
+ */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}

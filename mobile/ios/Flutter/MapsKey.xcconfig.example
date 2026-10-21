@@ -1,0 +1,3 @@
+// Copy to MapsKey.xcconfig (git-ignored) and paste your iOS-restricted key.
+// It is substituted into Info.plist key GMSApiKey and read by AppDelegate.swift.
+GMS_API_KEY = YOUR_IOS_MAPS_API_KEY

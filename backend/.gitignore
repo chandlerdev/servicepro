@@ -1,0 +1,11 @@
+# build output
+target/
+
+# secrets: local (.env) and live (.env.prod) settings — never commit
+.env
+.env.prod
+
+# IDE
+.idea/
+.vscode/
+*.iml

@@ -1,0 +1,16 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# secrets — never commit (each app also ignores its own)
+.env
+.env.*
+!.env.example
+**/local.properties
+**/key.properties
+*.jks
+*.keystore
+*.pem

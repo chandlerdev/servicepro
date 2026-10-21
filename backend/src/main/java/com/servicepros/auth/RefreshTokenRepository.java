@@ -1,0 +1,25 @@
+package com.servicepros.auth;
+
+import java.time.Instant;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
+
+    Optional<RefreshToken> findByTokenHash(String tokenHash);
+
+    @Modifying
+    @Query("update RefreshToken t set t.revoked = true where t.user.id = :userId and t.revoked = false")
+    int revokeAllForUser(Long userId);
+
+    @Modifying
+    @Query("delete from RefreshToken t where t.expiresAt < :cutoff or t.revoked = true")
+    int purge(Instant cutoff);
+
+    @Modifying
+    @Query("delete from RefreshToken t where t.user.id = :userId")
+    int deleteByUserId(Long userId);
+}
