@@ -18,7 +18,7 @@ val mapsApiKey: String =
     (localProperties.getProperty("MAPS_API_KEY") ?: System.getenv("MAPS_API_KEY") ?: "").trim()
 
 android {
-    namespace = "com.servicepros.servicepros_tech"
+    namespace = "com.desss.servproware"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -32,7 +32,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.servicepros.servicepros_tech"
+        applicationId = "com.desss.servproware"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
