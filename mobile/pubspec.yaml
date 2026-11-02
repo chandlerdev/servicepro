@@ -48,12 +48,12 @@ flutter:
           weight: 800
 # Native splash screen — regenerate after changing: dart run flutter_native_splash:create
 flutter_native_splash:
-  color: "#0A5C50"                      # AppColors.brandDark
+  color: "#FFFFFF"                      # white (logo is blue / green)
   image: assets/splash/logo.png         # 4x image (960px → 240dp)
-  branding: assets/splash/branding.png  # "ServProWare" wordmark (Poppins ExtraBold)
+  branding: assets/splash/branding.png  # "ServPro" green + "Ware" blue (Poppins ExtraBold)
   branding_mode: bottom
   android_12:
-    color: "#0A5C50"
+    color: "#FFFFFF"
     image: assets/splash/logo_android12.png
     branding: assets/splash/branding.png
   android: true
@@ -62,10 +62,10 @@ flutter_native_splash:
 
 # App icon — regenerate after changing: dart run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: assets/icon/icon.png                      # 1024×1024, green background + yellow bolt
+  image_path: assets/icon/icon.png                      # 1024×1024, SPW logo on white (made from logo_source.png)
   android: true
   min_sdk_android: 21
-  adaptive_icon_background: "#0A5C50"                   # AppColors.brandDark
+  adaptive_icon_background: "#FFFFFF"                   # white behind the SPW logo
   adaptive_icon_foreground: assets/icon/icon_foreground.png
   ios: true
   remove_alpha_ios: true                                # App Store rejects icons with transparency

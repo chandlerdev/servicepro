@@ -49,7 +49,17 @@ class _LoginScreenState extends State<LoginScreen> {
               constraints: const BoxConstraints(maxWidth: 420),
               child: Column(
                 children: [
-                  const Text('⚡', style: TextStyle(fontSize: 44)),
+                  // SPW logo on a white tile (the logo is blue / green)
+                  Container(
+                    width: 84,
+                    height: 84,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Image.asset('assets/splash/logo.png'),
+                  ),
                   const SizedBox(height: 8),
                   const Text(
                     'ServProWare',

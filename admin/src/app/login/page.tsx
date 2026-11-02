@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Zap } from "lucide-react";
 import toast from "react-hot-toast";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { FormField, Input, PasswordInput } from "@/components/ui/FormField";
 import { useHydrated } from "@/hooks/useHydrated";
@@ -63,9 +63,7 @@ export default function LoginPage() {
     <div className="flex min-h-dvh items-center justify-center bg-bg p-4">
       <div className="w-full max-w-[400px]">
         <div className="mb-5 flex items-center justify-center gap-2 text-2xl font-bold text-sidebar">
-          <span className="flex size-10 items-center justify-center rounded-xl bg-sidebar">
-            <Zap size={20} className="fill-[#ffd84d] text-[#ffd84d]" />
-          </span>
+          <BrandLogo size={44} />
           ServProWare
         </div>
         <form className="card p-6!" onSubmit={handleSubmit(onSubmit)} noValidate>

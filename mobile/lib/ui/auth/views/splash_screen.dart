@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/app_theme.dart';
-
 /// Shown while the stored session is being restored. Matches the native splash
 /// (flutter_native_splash: same colour, logo and wordmark) so there is no visible jump.
 class SplashScreen extends StatelessWidget {
@@ -9,7 +7,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: AppColors.brandDark,
+    backgroundColor:
+        Colors.white, // same as the native splash (flutter_native_splash)
     body: SafeArea(
       child: Column(
         children: [

@@ -86,15 +86,13 @@ class _HomeShellState extends State<HomeShell> {
   }
 }
 
-/// "⚡ ServProWare" + "Name · date · N stops · route names".
+/// SPW logo + "ServProWare", then "Name · date · N stops · route names".
 class _Header extends StatelessWidget {
   const _Header();
 
   @override
   Widget build(BuildContext context) {
-    final date = context.select<HomeViewModel, DateTime>(
-      (h) => h.selectedDate,
-    );
+    final date = context.select<HomeViewModel, DateTime>((h) => h.selectedDate);
     final userName = context.select<HomeViewModel, String?>((h) => h.userName);
     final data = context.select<StopsViewModel, TechStops?>((s) => s.data);
     final name = data?.technician?.name ?? userName ?? '';
@@ -109,9 +107,25 @@ class _Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text(
-          '⚡ ServProWare',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 26,
+              height: 26,
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Image.asset('assets/splash/logo.png'),
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              'ServProWare',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+            ),
+          ],
         ),
         Text(
           parts.join(' · '),

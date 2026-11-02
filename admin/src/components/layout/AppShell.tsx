@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogOut, Menu, X } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { logout } from "@/lib/api";
 import { NAV_GROUPS, SUPER_NAV_GROUPS, TECH_NAV_GROUPS, isActive, navItemFor, type NavGroup } from "@/lib/nav";
@@ -19,8 +20,9 @@ function Sidebar({ groups, panelLabel, onNavigate }: { groups: NavGroup[]; panel
   return (
     <div className="flex h-full w-[216px] min-w-[216px] flex-col bg-sidebar text-[#cfd8e3]">
       <div className="border-b border-white/[.08] px-4 pb-3.5 pt-[18px]">
-        <div className="flex items-center gap-1.5 text-[17px] font-bold tracking-[.3px] text-white">
-          ⚡ ServProWare
+        <div className="flex items-center gap-2 text-[17px] font-bold tracking-[.3px] text-white">
+          <BrandLogo size={30} />
+          ServProWare
         </div>
         <span className="mt-0.5 block text-[11px] text-[#7d93a8]">{panelLabel}</span>
       </div>
