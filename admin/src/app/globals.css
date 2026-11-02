@@ -4,9 +4,11 @@
 /* Brand tokens (CSS variables) → Tailwind theme                       */
 /* ------------------------------------------------------------------ */
 :root {
-  --brand: #0e7c6b;
-  --brand-dark: #0a5c50;
-  --brand-light: #e6f4f1;
+  /* ServProWare brand: blue #0060F0 (main) + green #22B14C (accent / success) */
+  --brand: #0060f0;
+  --brand-dark: #004bbd;
+  --brand-light: #e5eefe;
+  --accent: #22b14c;
   --ink: #1a2430;
   --muted: #66748a;
   --line: #e3e8ef;
@@ -14,7 +16,7 @@
   --card: #ffffff;
   --danger: #c93a3a;
   --warn: #b97a12;
-  --ok: #2e7d32;
+  --ok: #188a3b; /* brand green, deepened for readable text */
   --sidebar: #122333;
   --sidebar-ink: #c3cfdb;
   --radius: 10px;
@@ -24,6 +26,7 @@
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);
+  --color-accent: var(--accent);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -126,12 +129,12 @@ body {
     background: #f9dcdc;
   }
   .btn-ok {
-    background: #e8f4e9;
+    background: #e7f6ec;
     color: var(--ok);
-    border-color: #bfdec2;
+    border-color: #b9e3c6;
   }
   .btn-ok:hover {
-    background: #d8ecda;
+    background: #d4efdd;
   }
   .btn-sm {
     padding: 4px 9px;
@@ -166,8 +169,8 @@ body {
     color: #c93a3a;
   }
   .badge-green {
-    background: #e8f4e9;
-    color: #2e7d32;
+    background: #e7f6ec;
+    color: #188a3b;
   }
   .badge-grey {
     background: #f0f0f0;
@@ -380,8 +383,8 @@ body {
     background: var(--brand-light);
   }
   .smsbubble {
-    background: #eef6f4;
-    border: 1px solid #cfe6e1;
+    background: #eef4fe;
+    border: 1px solid #cfdffb;
     border-radius: 4px 14px 14px 14px;
     padding: 9px 12px;
     font-size: 13px;

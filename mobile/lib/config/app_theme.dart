@@ -4,23 +4,25 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const brand = Color(0xFF0E7C6B);
-  static const brandDark = Color(0xFF0A5C50);
-  static const brandLight = Color(0xFFE6F4F1);
+  // ServProWare brand: blue #0060F0 (main) + green #22B14C (accent / success)
+  static const brand = Color(0xFF0060F0);
+  static const brandDark = Color(0xFF004BBD);
+  static const brandLight = Color(0xFFE5EEFE);
+  static const accent = Color(0xFF22B14C);
   static const ink = Color(0xFF1A2430);
   static const muted = Color(0xFF66748A);
   static const line = Color(0xFFE3E8EF);
   static const bg = Color(0xFFF2F5F8);
   static const danger = Color(0xFFC93A3A);
   static const warn = Color(0xFFB97A12);
-  static const ok = Color(0xFF2E7D32);
+  static const ok = Color(0xFF188A3B); // brand green, deepened for readable text
   static const navy = Color(0xFF122333);
   static const doneStop = Color(0xFF9FB3A8);
 
   static const warnBg = Color(0xFFFFF4E0);
   static const warnBorder = Color(0xFFEED9AC);
-  static const okBg = Color(0xFFE8F4E9);
-  static const okBorder = Color(0xFFBFDEC2);
+  static const okBg = Color(0xFFE7F6EC);
+  static const okBorder = Color(0xFFB9E3C6);
 }
 
 class AppFonts {
@@ -35,7 +37,7 @@ class AppFonts {
   'CONFIRMED' => (const Color(0xFFE6F4F1), const Color(0xFF0A6C5C)),
   'EN_ROUTE' => (const Color(0xFFEEE5FB), const Color(0xFF6B3FB2)),
   'DELAYED' => (const Color(0xFFFDECEC), const Color(0xFFC93A3A)),
-  'COMPLETED' => (const Color(0xFFE8F4E9), const Color(0xFF2E7D32)),
+  'COMPLETED' => (AppColors.okBg, AppColors.ok),
   'CANCELLED' => (const Color(0xFFF0F0F0), const Color(0xFF777777)),
   _ => (const Color(0xFFFFF4E0), const Color(0xFFB97A12)),
 };

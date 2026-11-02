@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               borderRadius: "9px",
               maxWidth: "380px",
             },
-            success: { iconTheme: { primary: "#0e7c6b", secondary: "#fff" } },
+            success: { iconTheme: { primary: "#22b14c", secondary: "#fff" } },
           }}
         />
       </body>
