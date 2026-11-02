@@ -67,7 +67,7 @@ export default function LoginPage() {
           ServProWare
         </div>
         <form className="card p-6!" onSubmit={handleSubmit(onSubmit)} noValidate>
-          <h1 className="mb-1 text-lg font-semibold">Sign in</h1>
+          <h1 className="mb-1 text-lg font-semibold text-brand">Sign in</h1>
           <p className="mb-5 text-[13px] text-muted">Schedule, route and notify — all in one place.</p>
           <FormField label="Email" error={errors.email?.message} htmlFor="email" className="mb-3">
             <Input

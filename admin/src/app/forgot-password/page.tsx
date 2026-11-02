@@ -91,7 +91,7 @@ function EmailStep({ onSend }: { onSend: (email: string) => Promise<void> }) {
 
   return (
     <form className="card p-6!" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1 className="mb-1 text-lg font-semibold">Forgot password</h1>
+      <h1 className="mb-1 text-lg font-semibold text-brand">Forgot password</h1>
       <p className="mb-5 text-[13px] text-muted">
         Enter the email you sign in with. We&apos;ll email you a 6-digit code to set a new password.
       </p>
@@ -151,7 +151,7 @@ function ResetStep({
 
   return (
     <form className="card p-6!" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1 className="mb-1 text-lg font-semibold">Enter the code</h1>
+      <h1 className="mb-1 text-lg font-semibold text-brand">Enter the code</h1>
       <p className="mb-5 text-[13px] text-muted">
         We sent a 6-digit code to <b className="text-ink">{email}</b>. It expires in 10 minutes.{" "}
         <button type="button" className="font-medium text-brand hover:underline" onClick={onChangeEmail}>

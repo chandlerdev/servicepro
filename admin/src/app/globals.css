@@ -9,7 +9,7 @@
   --brand-dark: #004bbd;
   --brand-light: #e5eefe;
   --accent: #22b14c;
-  --ink: #1a2430;
+  --ink: #122333; /* reading text: dark navy (no black) */
   --muted: #66748a;
   --line: #e3e8ef;
   --bg: #f5f7fa;
@@ -67,6 +67,7 @@ body {
   .card-title {
     font-size: 15px;
     font-weight: 600;
+    color: var(--brand); /* headings: brand blue */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -218,7 +219,7 @@ body {
     display: block;
     font-size: 11.5px;
     font-weight: 600;
-    color: var(--muted);
+    color: var(--ok); /* labels: brand green */
     margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.4px;

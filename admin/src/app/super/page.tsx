@@ -311,7 +311,7 @@ type FormValues = z.infer<ReturnType<typeof makeSchema>>;
 function Section({ children, first }: { children: string; first?: boolean }) {
   return (
     <h3
-      className={`${first ? "" : "mt-4 "}mb-2 text-[11px] font-semibold tracking-[0.6px] text-muted uppercase`}
+      className={`${first ? "" : "mt-4 "}mb-2 text-[11px] font-semibold tracking-[0.6px] text-ok uppercase`}
     >
       {children}
     </h3>

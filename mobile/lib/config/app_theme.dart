@@ -9,13 +9,15 @@ class AppColors {
   static const brandDark = Color(0xFF004BBD);
   static const brandLight = Color(0xFFE5EEFE);
   static const accent = Color(0xFF22B14C);
-  static const ink = Color(0xFF1A2430);
+  static const ink = Color(0xFF122333); // reading text: dark navy (no black)
   static const muted = Color(0xFF66748A);
   static const line = Color(0xFFE3E8EF);
   static const bg = Color(0xFFF2F5F8);
   static const danger = Color(0xFFC93A3A);
   static const warn = Color(0xFFB97A12);
-  static const ok = Color(0xFF188A3B); // brand green, deepened for readable text
+  static const ok = Color(
+    0xFF188A3B,
+  ); // brand green, deepened for readable text
   static const navy = Color(0xFF122333);
   static const doneStop = Color(0xFF9FB3A8);
 
@@ -50,6 +52,7 @@ ThemeData buildAppTheme() {
     secondary: AppColors.brandDark,
     error: AppColors.danger,
     surface: Colors.white,
+    onSurface: AppColors.ink, // default text colour: navy, not black
   );
   final base = ThemeData(
     useMaterial3: true,
@@ -58,10 +61,19 @@ ThemeData buildAppTheme() {
     // Bundled font (see pubspec.yaml); applies to every Text in the app.
     fontFamily: AppFonts.family,
   );
+  // reading text navy; big headings (titleLarge, headline*) brand blue
+  final text = base.textTheme.apply(
+    bodyColor: AppColors.ink,
+    displayColor: AppColors.brand,
+  );
+  final textTheme = text.copyWith(
+    titleLarge: text.titleLarge?.copyWith(color: AppColors.brand),
+  );
   final btnShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(10),
   );
   return base.copyWith(
+    textTheme: textTheme,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.brandDark,
       foregroundColor: Colors.white,
@@ -100,6 +112,12 @@ ThemeData buildAppTheme() {
       style: OutlinedButton.styleFrom(shape: btnShape),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      // field labels: brand green
+      labelStyle: const TextStyle(color: AppColors.ok),
+      floatingLabelStyle: const TextStyle(
+        color: AppColors.ok,
+        fontWeight: FontWeight.w600,
+      ),
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

@@ -41,7 +41,7 @@ export function Modal({ open, onClose, title, children, footer, size = "md", cla
         )}
       >
         <div className="flex items-center border-b border-line px-5 py-[15px]">
-          <h3 className="flex-1 text-[15.5px] font-semibold">{title}</h3>
+          <h3 className="flex-1 text-[15.5px] font-semibold text-brand">{title}</h3>
           <button
             type="button"
             aria-label="Close"
