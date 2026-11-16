@@ -3,7 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { RouteStopCard } from "@/components/schedule/RouteStopCard";
-import { ScheduleMap } from "@/components/schedule/ScheduleMap";
+import { MAP_ENABLED, ScheduleMap } from "@/components/schedule/ScheduleMap";
 import { routeColor } from "@/components/schedule/colors";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -122,7 +122,7 @@ export default function SchedulePage() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(380px,1fr)_minmax(0,1.25fr)]">
+      <div className={MAP_ENABLED ? "grid grid-cols-1 gap-4 xl:grid-cols-[minmax(380px,1fr)_minmax(0,1.25fr)]" : "grid grid-cols-1 gap-4"}>
         <div className="min-w-0">
           {!data && schedule.loading && <PageSpinner />}
           {!data && !schedule.loading && schedule.error && (
@@ -142,15 +142,13 @@ export default function SchedulePage() {
               ) : null,
             )}
         </div>
-        <div className="min-w-0">
-          <div className="card p-2.5! xl:sticky xl:top-0">
-            <ScheduleMap schedule={data} />
-            <div className="demo-note px-1">
-              Pins are numbered in visit order; lines show each route&apos;s driving sequence from the depot ⌂ (dashed =
-              not yet optimized / changed).
+        {MAP_ENABLED && (
+          <div className="min-w-0">
+            <div className="card p-2.5! xl:sticky xl:top-0">
+              <ScheduleMap schedule={data} />
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

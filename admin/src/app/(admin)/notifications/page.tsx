@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { DateRangeFilter, defaultRange } from "@/components/DateRangeFilter";
 import { NotificationList } from "@/components/NotificationList";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -23,7 +24,18 @@ export default function NotificationsPage() {
   const [type, setType] = useState<NotificationType | "">("");
   const [page, setPage] = useState(0);
   const [confirmClear, setConfirmClear] = useState(false);
-  const list = useApi(() => notificationsApi.page({ type: type || undefined, page, size: PAGE_SIZE }), [type, page]);
+  const [range, setRange] = useState(defaultRange);
+  const list = useApi(
+    () =>
+      notificationsApi.page({
+        type: type || undefined,
+        from: range.from || undefined,
+        to: range.to || undefined,
+        page,
+        size: PAGE_SIZE,
+      }),
+    [type, range.from, range.to, page],
+  );
   useInterval(() => list.reload({ silent: true }), page === 0 ? 30_000 : null);
 
   const data = list.data;
@@ -33,14 +45,19 @@ export default function NotificationsPage() {
       <Card
         title={
           <>
-            📨 Message Log{" "}
-            <span className="text-xs font-normal text-muted">
-              SMS &amp; email · “Simulated” = provider not configured, message only logged
-            </span>
+            📨 Message Log <span className="text-xs font-normal text-muted">SMS &amp; email</span>
           </>
         }
         actions={
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <DateRangeFilter
+              from={range.from}
+              to={range.to}
+              onChange={(r) => {
+                setRange(r);
+                setPage(0);
+              }}
+            />
             <Select
               className="w-[200px]"
               value={type}

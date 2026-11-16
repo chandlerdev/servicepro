@@ -14,6 +14,7 @@ import com.servicepros.common.PageResponse;
 import com.servicepros.notification.MessageTemplates;
 import com.servicepros.notification.Notification;
 import com.servicepros.notification.NotificationDtos.NotificationResponse;
+import com.servicepros.notification.NotificationRange;
 import com.servicepros.notification.NotificationRepository;
 import com.servicepros.notification.NotificationService;
 import com.servicepros.route.ServiceRoute;
@@ -47,6 +48,7 @@ public class TechService {
     private final ScheduleService scheduleService;
     private final NotificationService notifications;
     private final NotificationRepository notificationRepo;
+    private final NotificationRange notificationRange;
     private final SettingsService settingsService;
     private final UserRepository users;
 
@@ -113,14 +115,18 @@ public class TechService {
     }
 
     @Transactional(readOnly = true)
-    public PageResponse<NotificationResponse> notifications(AppUserPrincipal p, Long technicianIdParam, Integer page, Integer size) {
+    public PageResponse<NotificationResponse> notifications(AppUserPrincipal p, Long technicianIdParam,
+                                                            java.time.LocalDate from, java.time.LocalDate to,
+                                                            Integer page, Integer size) {
         Technician t = resolveTechnician(p, technicianIdParam);
         List<Long> routeIds = routes.findByTechnicianId(t.getId()).stream().map(ServiceRoute::getId).toList();
         var pageable = PageResponse.pageable(page, size, Sort.by(Sort.Direction.DESC, "id"));
         if (routeIds.isEmpty()) {
             return new PageResponse<>(List.of(), pageable.getPageNumber(), pageable.getPageSize(), 0, 0);
         }
-        return PageResponse.of(notificationRepo.findByRouteIdIn(routeIds, pageable), NotificationResponse::from);
+        var b = notificationRange.resolve(from, to);
+        return PageResponse.of(notificationRepo.findByRouteIdInAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                routeIds, b.from(), b.toExclusive(), pageable), NotificationResponse::from);
     }
 
     // ---------------------------------------------------------------- helpers

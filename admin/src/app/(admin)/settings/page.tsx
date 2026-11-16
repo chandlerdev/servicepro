@@ -82,7 +82,7 @@ export default function SettingsPage() {
   return <SettingsForm initial={settings.data} onSaved={(s) => settings.setData(() => s)} />;
 }
 
-function Indicator({ ok, label, env }: { ok: boolean; label: string; env: string }) {
+function Indicator({ ok, label }: { ok: boolean; label: string }) {
   return (
     <div className="flex items-start gap-3 rounded-[9px] border border-line p-3">
       {ok ? (
@@ -97,7 +97,6 @@ function Indicator({ ok, label, env }: { ok: boolean; label: string; env: string
         ) : (
           <span className="badge badge-grey">Not configured — set env vars</span>
         )}
-        {!ok && <div className="mt-1 text-[11px] text-muted">{env}</div>}
       </div>
     </div>
   );
@@ -224,14 +223,10 @@ function SettingsForm({ initial, onSaved }: { initial: Settings; onSaved: (s: Se
 
       <Card title="🔌 Integrations">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <Indicator ok={initial.smsConfigured} label="SMS (Twilio)" env="TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM" />
-          <Indicator ok={initial.googleMapsConfigured} label="Google Maps (geocoding & routing)" env="GOOGLE_MAPS_API_KEY" />
-          <Indicator ok={initial.mailConfigured} label="Email (SMTP)" env="SPRING_MAIL_HOST / username / password" />
+          <Indicator ok={initial.smsConfigured} label="SMS (Twilio)" />
+          <Indicator ok={initial.googleMapsConfigured} label="Google Maps (geocoding & routing)" />
+          <Indicator ok={initial.mailConfigured} label="Email (SMTP)" />
         </div>
-        <p className="demo-note">
-          These are read-only and reflect the backend&apos;s environment. Without a provider, messages are logged as
-          “Simulated”.
-        </p>
       </Card>
 
       <Card title="🏢 Company">
@@ -379,10 +374,6 @@ function SettingsForm({ initial, onSaved }: { initial: Settings; onSaved: (s: Se
             />
           </FormField>
         </FormRow>
-        <p className="demo-note">
-          🔒 Only the card brand, last 4 digits, expiry and name on card are saved. The full card number and CVV are
-          never stored.
-        </p>
       </Card>
 
       <Card title="⭐ Reviews">
@@ -394,9 +385,6 @@ function SettingsForm({ initial, onSaved }: { initial: Settings; onSaved: (s: Se
             <Input placeholder="https://facebook.com/…/reviews" {...register("facebookReviewUrl")} />
           </FormField>
         </FormRow>
-        <p className="demo-note">
-          Texted to the customer automatically when a technician completes a job (leave blank to skip the review links).
-        </p>
       </Card>
 
       <div className="sticky bottom-0 -mx-3 flex justify-end gap-2 border-t border-line bg-bg/95 px-3 py-3 backdrop-blur sm:-mx-[22px] sm:px-[22px]">

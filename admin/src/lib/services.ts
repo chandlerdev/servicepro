@@ -158,8 +158,10 @@ export const techApi = {
     api.post<TechCompleteResponse>(`/api/tech/appointments/${appointmentId}/complete${techParams(technicianId)}`, {
       notes,
     }),
-  notifications: (q: { page?: number; size?: number; technicianId?: number | null }) =>
+  notifications: (q: { page?: number; size?: number; technicianId?: number | null; from?: string; to?: string }) =>
     api.get<Page<Notification>>("/api/tech/notifications", {
+      from: q.from,
+      to: q.to,
       page: q.page,
       size: q.size,
       technicianId: q.technicianId ?? undefined,

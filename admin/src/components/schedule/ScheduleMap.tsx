@@ -9,6 +9,8 @@ import type { DaySchedule, Office, Stop } from "@/types/api";
 import { routeColor } from "./colors";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
+/** False when the site was built without a Google Maps key: the map is then left out entirely. */
+export const MAP_ENABLED = !!API_KEY;
 /** Advanced Markers need a Map ID; Google's DEMO_MAP_ID works without any Cloud setup. */
 const MAP_ID = "DEMO_MAP_ID";
 const MAP_HEIGHT = 460;
@@ -40,21 +42,7 @@ function FitBounds({ points }: { points: LatLng[] }) {
 type Selected = { kind: "stop"; stop: Stop; order: number; routeName: string; stale: boolean } | { kind: "depot" };
 
 export function ScheduleMap({ schedule }: { schedule: DaySchedule | undefined }) {
-  if (!API_KEY) {
-    return (
-      <div
-        className="flex flex-col items-center justify-center rounded-card border border-dashed border-[#b9c6d6] bg-[#f4f7fa] p-6 text-center"
-        style={{ height: MAP_HEIGHT }}
-      >
-        <div className="mb-2 text-3xl">🗺️</div>
-        <b className="mb-1">Map preview unavailable</b>
-        <p className="max-w-sm text-[12.5px] text-muted">
-          Set <code className="rounded bg-white px-1">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> in <code>.env.local</code>{" "}
-          to see pins and route lines. The stop list, ETAs and “Google Maps” route links still work.
-        </p>
-      </div>
-    );
-  }
+  if (!API_KEY) return null;
   return (
     <APIProvider apiKey={API_KEY}>
       <MapInner schedule={schedule} />

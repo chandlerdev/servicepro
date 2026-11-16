@@ -109,12 +109,6 @@ export default function CitiesPage() {
           onPageChange={setPage}
           emptyText={debouncedQ ? `No city matches "${debouncedQ}".` : "No cities yet — add the cities your admins serve."}
         />
-        <div className="demo-note">
-          This one list is shared by every admin: what you add, rename or delete here shows up at once in all admins&apos;
-          Customer, Route and Appointment forms (admins can&apos;t change it). Renaming a city also renames it on every
-          customer and route that uses it. The map centre is used when a customer&apos;s address can&apos;t be found on
-          Google Maps.
-        </div>
       </Card>
 
       {editing && (

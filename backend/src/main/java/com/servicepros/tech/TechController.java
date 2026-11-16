@@ -62,8 +62,10 @@ public class TechController {
 
     @GetMapping("/notifications")
     public PageResponse<NotificationResponse> notifications(@RequestParam(required = false) Long technicianId,
+                                                            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate from,
+                                                            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate to,
                                                             @RequestParam(required = false) Integer page,
                                                             @RequestParam(required = false) Integer size) {
-        return service.notifications(CurrentUser.get(), technicianId, page, size);
+        return service.notifications(CurrentUser.get(), technicianId, from, to, page, size);
     }
 }

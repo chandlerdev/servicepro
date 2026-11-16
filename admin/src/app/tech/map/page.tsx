@@ -1,6 +1,6 @@
 "use client";
 
-import { ScheduleMap } from "@/components/schedule/ScheduleMap";
+import { MAP_ENABLED, ScheduleMap } from "@/components/schedule/ScheduleMap";
 import { Card } from "@/components/ui/Card";
 import { ErrorState } from "@/components/ui/EmptyState";
 import { Input } from "@/components/ui/FormField";
@@ -37,13 +37,15 @@ export default function RouteMapPage() {
           aria-label="Date"
         />
       </Card>
-      <div className="card p-2.5!">
-        {stops.error && !stops.data ? (
-          <ErrorState message={stops.error} onRetry={() => stops.reload()} />
-        ) : (
-          <ScheduleMap schedule={stops.data} />
-        )}
-      </div>
+      {MAP_ENABLED && (
+        <div className="card p-2.5!">
+          {stops.error && !stops.data ? (
+            <ErrorState message={stops.error} onRetry={() => stops.reload()} />
+          ) : (
+            <ScheduleMap schedule={stops.data} />
+          )}
+        </div>
+      )}
     </>
   );
 }

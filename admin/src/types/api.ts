@@ -370,6 +370,9 @@ export interface Notification {
 }
 export interface NotificationQuery extends PageParams {
   type?: NotificationType;
+  /** YYYY-MM-DD, inclusive; with no dates the server returns yesterday and today. */
+  from?: string;
+  to?: string;
 }
 
 /* ------------------------------------------------------------------ */
