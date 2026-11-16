@@ -9,7 +9,9 @@ import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
 import { useAuthStore } from "@/store/auth";
 import type { ApiErrorBody, AuthResponse } from "@/types/api";
 
-export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:9091").replace(
+// Empty means "the same domain that served the page" (calls go to /api/...), which is what a
+// release build uses. For `npm run dev` set NEXT_PUBLIC_API_BASE_URL in .env.development.
+export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(
   /\/+$/,
   "",
 );

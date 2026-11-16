@@ -1,0 +1,39 @@
+// The backend and web app of one site, as PM2 runs them from a release.
+// Copy it into the site's folder as ecosystem.config.js and check the values
+// marked <- against the site's Apache config and `ss -ltn`.
+//
+//   cp ecosystem.config.js.example /var/www/Vhost/servproware.appointware.com/ecosystem.config.js
+
+const DIR = '/var/www/Vhost/servproware.appointware.com';   // <- the site's folder
+
+const BACKEND_PORT = 8095;    // <- the backend's port (Apache's /api line)
+const ADMIN_PORT = 3015;      // <- the web app's port (Apache's / line)
+
+module.exports = {
+  apps: [
+    {
+      name: 'servproware-backend',    // <- BACKEND_NAME in deploy.conf
+      // Run from backend/ because the backend reads backend/.env (database,
+      // mail, Twilio) from its working directory. deploy.sh swaps the jar.
+      cwd: `${DIR}/backend`,
+      script: 'java',
+      args: ['-jar', 'servicepros-backend.jar'],
+      env: {
+        SERVER_PORT: BACKEND_PORT,
+      },
+    },
+    {
+      name: 'servproware-admin',      // <- ADMIN_NAME in deploy.conf
+      cwd: `${DIR}/app/admin`,
+      script: 'server.js',
+      max_memory_restart: '600M',
+      env: {
+        NODE_ENV: 'production',
+        PORT: ADMIN_PORT,
+        // Set here because the shell's own HOSTNAME (the machine's name)
+        // would otherwise be the address the server listens on.
+        HOSTNAME: '127.0.0.1',
+      },
+    },
+  ],
+};

@@ -8,6 +8,10 @@ import type { NextConfig } from "next";
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
 
 const nextConfig: NextConfig = {
+  // Only the release workflow sets NEXT_OUTPUT=standalone, which makes the
+  // build a self-contained server for deploy/deploy.sh. A normal
+  // `npm run build` is unchanged.
+  output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   basePath: basePath || undefined,
 };
 

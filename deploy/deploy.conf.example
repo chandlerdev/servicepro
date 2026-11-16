@@ -1,0 +1,16 @@
+# deploy.sh's settings for one site. Copy it into the site's folder as
+# deploy.conf and check each value against `pm2 ls` on that server.
+#
+#   cp deploy.conf.example /var/www/Vhost/servproware.appointware.com/deploy.conf
+
+# The GitHub repository the releases are downloaded from.
+REPO="chandlerdev/servicepro"
+
+# The backend's PM2 process, and the jar it runs, from the site's folder.
+# deploy.sh swaps the jar and restarts this process, which reads its
+# database and other settings from backend/.env.
+BACKEND_NAME="servproware-backend"
+BACKEND_JAR="backend/servicepros-backend.jar"
+
+# The web app's PM2 process, as named in ecosystem.config.js.
+ADMIN_NAME="servproware-admin"
