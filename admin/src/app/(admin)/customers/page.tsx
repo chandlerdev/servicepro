@@ -132,10 +132,6 @@ export default function CustomersPage() {
           onPageChange={setPage}
           emptyText="No customers found."
         />
-        <div className="demo-note">
-          Address changes are geocoded automatically and flag affected schedules for re-optimization + customer
-          re-notification.
-        </div>
       </Card>
 
       {editing && (

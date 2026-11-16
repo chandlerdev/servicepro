@@ -96,9 +96,6 @@ export default function LoginPage() {
             Sign in
           </Button>
         </form>
-        <p className="mt-3 text-center text-[11.5px] text-[#8a96a8]">
-          Super Admin, admins and technicians sign in here. Technicians can also use the ServProWare mobile app.
-        </p>
       </div>
     </div>
   );

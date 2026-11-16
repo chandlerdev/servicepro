@@ -101,10 +101,6 @@ export default function AppointmentsPage() {
           onPageChange={setPage}
           emptyText="No appointments for this date."
         />
-        <div className="demo-note">
-          Booking or editing an appointment flags its route/date schedule as changed. Use{" "}
-          <b>Day Plan &amp; Map → Re-optimize</b> to recalculate ETAs and notify customers of the updated plan.
-        </div>
       </Card>
 
       <AppointmentFormModal

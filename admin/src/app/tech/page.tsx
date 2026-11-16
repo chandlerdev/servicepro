@@ -43,10 +43,6 @@ export default function MySchedulePage() {
             {data ? `${data.technician.name} · ${formatDate(date)}` : formatDate(date)}
           </span>
         </div>
-        <div className="demo-note">
-          “Delay” texts every remaining customer on your route a new ETA. “Complete” closes the job and texts the customer
-          Google &amp; Facebook review links.
-        </div>
       </Card>
 
       {!data && stops.loading && <PageSpinner />}

@@ -5,7 +5,7 @@ export interface NavItem {
   /** emoji icon shown in the sidebar (as in the prototype) */
   icon: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   /** not shown in the sidebar, but the page still works when its URL is opened directly */
   hidden?: boolean;
 }
@@ -106,7 +106,6 @@ export const SUPER_NAV_GROUPS: NavGroup[] = [
         label: "Admins",
         icon: "🛡️",
         title: "Admins",
-        subtitle: "Create and manage admins — each admin has their own technicians, customers and routes",
       },
       {
         href: "/super/cities",

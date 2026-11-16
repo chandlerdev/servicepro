@@ -194,12 +194,6 @@ export default function AdminsPage() {
           onRetry={() => admins.reload()}
           emptyText="No admins yet — create the first one."
         />
-        <div className="demo-note">
-          Each admin signs in to this website and manages their own technicians,
-          customers, routes, tasks and appointments — admins never see each
-          other&apos;s data. Disabling an admin also blocks their
-          technicians&apos; app logins.
-        </div>
       </Card>
 
       {editing && (
@@ -549,11 +543,6 @@ function AdminModal({
         </p>
 
         <Checkbox label="Active (can sign in)" {...register("active")} />
-        <p className="mt-3 text-xs text-muted">
-          After signing in, the admin sets up their depot address under
-          Settings, then adds cities, technicians, vehicles and routes under
-          Masters.
-        </p>
       </form>
     </Modal>
   );

@@ -43,7 +43,6 @@ export default function RouteMapPage() {
         ) : (
           <ScheduleMap schedule={stops.data} />
         )}
-        <div className="demo-note px-1">Tap a pin → “Directions” for turn-by-turn navigation to that stop.</div>
       </div>
     </>
   );

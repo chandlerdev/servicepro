@@ -110,11 +110,6 @@ export default function SchedulePage() {
             Live · refreshes every 20 s
           </span>
         </div>
-        <div className="demo-note">
-          Run <b>Allocate &amp; notify</b> the evening before: it collects every appointment for the date, optimizes each
-          route&apos;s stop order, computes exact arrival times, and texts every customer their time — review links go out
-          automatically after each job is completed.
-        </div>
       </Card>
 
       {stale && (
