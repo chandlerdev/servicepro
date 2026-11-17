@@ -1,37 +1,32 @@
 package com.servicepros.notification;
 
 import com.servicepros.config.AppProperties;
+import com.servicepros.integration.IntegrationSettingsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-/** Sends plain-text email when SMTP (MAIL_HOST) is configured; otherwise simulates. */
+/**
+ * Sends plain-text email through the SMTP server set by the Super Admin (Settings → Integrations → Email);
+ * when none is set, emails are only logged (simulated).
+ */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class MailGateway {
 
-    private final ObjectProvider<JavaMailSender> senderProvider;
+    private final IntegrationSettingsService integrations;
     private final AppProperties props;
-    private final String host;
 
-    public MailGateway(ObjectProvider<JavaMailSender> senderProvider, AppProperties props,
-                       @Value("${spring.mail.host:}") String host) {
-        this.senderProvider = senderProvider;
-        this.props = props;
-        this.host = host;
-    }
-
-    /** An empty MAIL_HOST still creates a mail sender in Spring, so check the host explicitly. */
     public boolean isConfigured() {
-        return StringUtils.hasText(host) && senderProvider.getIfAvailable() != null;
+        return integrations.isMailConfigured();
     }
 
     public SmsGateway.Result send(String to, String subject, String body) {
-        if (!isConfigured()) {
+        JavaMailSender sender = integrations.mailSender();
+        if (sender == null) {
             log.info("[Email simulated] to {}: {}", to, subject);
             return new SmsGateway.Result(Notification.Status.SIMULATED, null, null);
         }
@@ -41,7 +36,7 @@ public class MailGateway {
             msg.setTo(to);
             msg.setSubject(subject);
             msg.setText(body);
-            senderProvider.getObject().send(msg);
+            sender.send(msg);
             return new SmsGateway.Result(Notification.Status.SENT, null, null);
         } catch (Exception e) {
             log.warn("Email to {} failed: {}", to, e.getMessage());

@@ -31,13 +31,11 @@ public class PlacesService {
     }
 
     private final AppProperties.Google cfg;
-    private final List<String> regions;
     private final RestClient places;
     private final RestClient geocode;
 
     public PlacesService(AppProperties props, RestClient.Builder builder) {
         this.cfg = props.getGoogle();
-        this.regions = props.getGoogle().getPlacesRegions();
         this.places = builder.clone().baseUrl("https://places.googleapis.com/v1").build();
         this.geocode = builder.clone().baseUrl("https://maps.googleapis.com/maps/api/geocode").build();
     }
@@ -54,7 +52,8 @@ public class PlacesService {
         if (q.length() < 3) return List.of();
         Map<String, Object> body = new java.util.HashMap<>();
         body.put("input", q);
-        if (!regions.isEmpty()) body.put("includedRegionCodes", regions);
+        List<String> regions = cfg.getPlacesRegions(); // read each time: the Super Admin can change it on Settings
+        if (regions != null && !regions.isEmpty()) body.put("includedRegionCodes", regions);
         if (StringUtils.hasText(sessionToken)) body.put("sessionToken", sessionToken);
         try {
             Map<String, Object> res = places.post().uri("/places:autocomplete")

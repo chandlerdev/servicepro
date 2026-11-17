@@ -64,21 +64,53 @@ export const superAdminApi = {
   setActive: (id: number, active: boolean) => api.patch<AdminAccount>(`/api/super/admins/${id}/active`, { active }),
 };
 
-/** System-wide integrations (SMS, Google Maps, Email) — read-only, set in the server's env file. */
-export interface IntegrationDetail {
-  label: string;
-  value: string;
+/** System-wide integrations (SMS, Google Maps, Email) the Super Admin sets. Secrets come back only as "••••1234". */
+export interface Integrations {
+  sms: {
+    connected: boolean;
+    accountSid: string | null;
+    authTokenSet: boolean;
+    authTokenHint: string | null;
+    fromNumber: string | null;
+    webhookUrl: string | null;
+  };
+  maps: { connected: boolean; apiKeySet: boolean; apiKeyHint: string | null; regions: string | null };
+  mail: {
+    connected: boolean;
+    host: string | null;
+    port: number | null;
+    username: string | null;
+    passwordSet: boolean;
+    from: string | null;
+  };
 }
-export interface Integration {
-  key: string;
-  name: string;
-  purpose: string;
-  connected: boolean;
-  details: IntegrationDetail[];
-  envVars: string[];
+export type IntegrationKey = keyof Integrations;
+/** blank secret = keep the saved one */
+export interface SmsSettingsRequest {
+  accountSid: string;
+  authToken: string;
+  fromNumber: string;
+  webhookUrl: string;
 }
+export interface MapsSettingsRequest {
+  apiKey: string;
+  regions: string;
+}
+export interface MailSettingsRequest {
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  from: string;
+}
+const INT = "/api/super/settings/integrations";
 export const superSettingsApi = {
-  integrations: () => api.get<Integration[]>("/api/super/settings/integrations"),
+  integrations: () => api.get<Integrations>(INT),
+  saveSms: (body: SmsSettingsRequest) => api.put<Integrations>(`${INT}/sms`, body),
+  saveMaps: (body: MapsSettingsRequest) => api.put<Integrations>(`${INT}/maps`, body),
+  saveMail: (body: MailSettingsRequest) => api.put<Integrations>(`${INT}/mail`, body),
+  disconnect: (key: IntegrationKey) => api.delete<Integrations>(`${INT}/${key}`),
+  testMail: (to: string) => api.post<{ message: string }>(`${INT}/mail/test`, { to }),
 };
 
 /** Forgot password (admins and technicians): email a 6-digit code, then reset with it. */
