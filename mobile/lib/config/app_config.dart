@@ -6,7 +6,7 @@ class AppConfig {
   AppConfig._();
 
   /// Backend base URL — the live server (Apache forwards /api to Spring Boot).
-  static const String apiBaseUrl = 'https://teksupportsquad.desss-portfolio.com';
+  static const String apiBaseUrl = 'https://servproware.appointware.com';
 
   static const String appName = 'ServProWare';
 

@@ -23,7 +23,7 @@ flutter pub get
 
 ## Running
 
-The app always talks to the live server, `https://teksupportsquad.desss-portfolio.com`
+The app always talks to the live server, `https://servproware.appointware.com`
 (set in `lib/config/app_config.dart`). No extra flags are needed:
 
 ```bash
