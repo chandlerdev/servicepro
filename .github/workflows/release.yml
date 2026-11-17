@@ -52,6 +52,7 @@ jobs:
         working-directory: admin
         env:
           NEXT_OUTPUT: standalone
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ vars.MAPS_KEY }}
         run: |
           npm ci
           npm run build
