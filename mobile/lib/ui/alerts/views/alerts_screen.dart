@@ -94,10 +94,76 @@ class _AlertsScreenState extends State<AlertsScreen> {
       );
     }
 
-    return RefreshIndicator(
-      color: AppColors.brand,
-      onRefresh: _refresh,
-      child: child,
+    return Column(
+      children: [
+        _DateFilterBar(vm: vm),
+        Expanded(
+          child: RefreshIndicator(
+            color: AppColors.brand,
+            onRefresh: _refresh,
+            child: child,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// "From – To" button that opens a date-range picker, plus a clear button.
+/// With nothing chosen the list shows yesterday and today.
+class _DateFilterBar extends StatelessWidget {
+  const _DateFilterBar({required this.vm});
+
+  final AlertsViewModel vm;
+
+  static String _label(DateTime d) =>
+      '${d.month.toString().padLeft(2, "0")}/'
+      '${d.day.toString().padLeft(2, "0")}/'
+      '${d.year}';
+
+  Future<void> _pick(BuildContext context) async {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2020),
+      lastDate: today,
+      initialDateRange:
+          vm.range ??
+          DateTimeRange(
+            start: today.subtract(const Duration(days: 1)),
+            end: today,
+          ),
+    );
+    if (picked != null) await vm.setRange(picked);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final r = vm.range;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: OutlinedButton.icon(
+              onPressed: () => _pick(context),
+              icon: const Icon(Icons.date_range, size: 18),
+              label: Text(
+                r == null
+                    ? 'Yesterday – Today'
+                    : '${_label(r.start)} – ${_label(r.end)}',
+              ),
+            ),
+          ),
+          if (r != null)
+            IconButton(
+              tooltip: 'Back to yesterday – today',
+              icon: const Icon(Icons.close),
+              onPressed: () => vm.setRange(null),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -192,16 +258,14 @@ class _AlertTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(n.message, style: const TextStyle(fontSize: 13.5)),
-                  if (n.failed || n.status == 'SIMULATED')
+                  if (n.failed)
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        n.failed
-                            ? '⚠ Failed${n.error != null ? ': ${n.error}' : ''}'
-                            : 'Simulated (SMS provider not configured)',
-                        style: TextStyle(
+                        '⚠ Failed${n.error != null ? ': ${n.error}' : ''}',
+                        style: const TextStyle(
                           fontSize: 11.5,
-                          color: n.failed ? AppColors.danger : AppColors.muted,
+                          color: AppColors.danger,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

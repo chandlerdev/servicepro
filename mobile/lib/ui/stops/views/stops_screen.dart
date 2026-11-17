@@ -148,13 +148,6 @@ class _StopsList extends StatelessWidget {
             child: StopCard(key: ValueKey(s.appointmentId), stop: s),
           ),
       ],
-      const SizedBox(height: 8),
-      const Text(
-        '“Delay” texts every remaining customer on your route a new ETA. '
-        '“Done” closes the job and texts the customer Google & Facebook review links.',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 12, color: AppColors.muted),
-      ),
       const SizedBox(height: 16),
     ];
     return ListView(

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart' show DateTimeRange;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -83,10 +84,19 @@ class FakeAlertsRepository implements AlertsRepository {
   int totalPages = 3;
   Object? error;
   final List<int> pages = [];
+  String? lastFrom;
+  String? lastTo;
 
   @override
-  Future<PageResult<AppNotification>> fetch({int page = 0, int size = 20}) async {
+  Future<PageResult<AppNotification>> fetch({
+    int page = 0,
+    int size = 20,
+    String? from,
+    String? to,
+  }) async {
     pages.add(page);
+    lastFrom = from;
+    lastTo = to;
     if (error != null) throw error!;
     return PageResult(
       content: [
@@ -250,6 +260,22 @@ void main() {
       expect(vm.hasMore, isFalse);
       await vm.loadMore(); // no-op
       expect(repo.pages, [0, 1, 2]);
+      vm.dispose();
+    });
+
+    test('sends the chosen From/To dates, and none by default', () async {
+      final repo = FakeAlertsRepository();
+      final vm = AlertsViewModel(repository: repo);
+      await vm.load();
+      expect(repo.lastFrom, isNull);
+      expect(repo.lastTo, isNull);
+      await vm.setRange(
+        DateTimeRange(start: DateTime(2026, 11, 3), end: DateTime(2026, 11, 16)),
+      );
+      expect(repo.lastFrom, '2026-11-03');
+      expect(repo.lastTo, '2026-11-16');
+      await vm.setRange(null);
+      expect(repo.lastFrom, isNull);
       vm.dispose();
     });
 

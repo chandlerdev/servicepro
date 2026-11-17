@@ -337,21 +337,6 @@ class _NoMapFallback extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       children: [
         if (banner != null) ...[banner!, const SizedBox(height: 10)],
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: AppColors.warnBg,
-            border: Border.all(color: AppColors.warnBorder),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Text(
-            'Map preview unavailable — no Google Maps API key is configured in '
-            'this build. Showing your stops in route order; tap ↗ for '
-            'turn-by-turn directions in Google Maps.',
-            style: TextStyle(color: Color(0xFF7C5A10), fontSize: 13),
-          ),
-        ),
-        const SizedBox(height: 10),
         Card(
           child: Column(
             children: [
