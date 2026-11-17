@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,18 @@ Future<void> main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized();
   // Keep the native splash (flutter_native_splash) up until the saved session is checked.
   FlutterNativeSplash.preserve(widgetsBinding: binding);
+  // Edge-to-edge on every Android version (Android 15+ forces it anyway): the app draws behind the status and
+  // navigation bars, and AppBar / NavigationBar / SafeArea keep content clear of them. Transparent bars so the
+  // app's own colours show through, as Google Play recommends.
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: false,
+    ),
+  );
   await initializeDateFormatting();
   runApp(
     MultiProvider(

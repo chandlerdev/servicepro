@@ -47,6 +47,9 @@ flutter:
         - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
           weight: 800
 # Native splash screen — regenerate after changing: dart run flutter_native_splash:create
+# NOTE: regenerating writes windowLayoutInDisplayCutoutMode=shortEdges back into android/app/src/main/res/values*/styles.xml.
+# Google Play flags shortEdges as deprecated: afterwards delete that line from values/ and values-night/,
+# and change it to "always" in values-v31/ and values-night-v31/.
 flutter_native_splash:
   color: "#FFFFFF"                      # white (logo is blue / green)
   image: assets/splash/logo.png         # 4x image (960px → 240dp)
