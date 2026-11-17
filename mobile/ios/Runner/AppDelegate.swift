@@ -18,6 +18,9 @@ import UIKit
         mapsConfigured = true
       }
     }
+    NSLog(mapsConfigured
+      ? "ServProWare: Google Maps key found — Map tab shows the map"
+      : "ServProWare: NO Google Maps key (GMS_API_KEY in ios/Flutter/MapsKey.xcconfig) — Map tab shows the stop list")
 
     GeneratedPluginRegistrant.register(with: self)
 
