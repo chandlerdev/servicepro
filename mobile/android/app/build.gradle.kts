@@ -17,6 +17,15 @@ val localProperties = Properties().apply {
 val mapsApiKey: String =
     (localProperties.getProperty("MAPS_API_KEY") ?: System.getenv("MAPS_API_KEY") ?: "").trim()
 
+// Release (upload) key for Google Play: android/key.properties (git-ignored) with
+//   storeFile=<path to upload-keystore.jks>  storePassword=...  keyAlias=upload  keyPassword=...
+// Without that file, release builds fall back to the debug key (fine for testing, rejected by Play).
+val keystoreProperties = Properties().apply {
+    val f = rootProject.file("key.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+val hasReleaseKey = keystoreProperties.getProperty("storeFile")?.isNotBlank() == true
+
 android {
     namespace = "com.desss.servproware"
     compileSdk = flutter.compileSdkVersion
@@ -42,11 +51,20 @@ android {
         manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey.ifEmpty { "MISSING_MAPS_API_KEY" }
     }
 
+    signingConfigs {
+        if (hasReleaseKey) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName(if (hasReleaseKey) "release" else "debug")
         }
     }
 }
