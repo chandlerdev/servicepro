@@ -95,7 +95,7 @@ function Indicator({ ok, label }: { ok: boolean; label: string }) {
         {ok ? (
           <span className="badge badge-green">Connected</span>
         ) : (
-          <span className="badge badge-grey">Not configured — set env vars</span>
+          <span className="badge badge-grey">Not connected</span>
         )}
       </div>
     </div>

@@ -64,6 +64,23 @@ export const superAdminApi = {
   setActive: (id: number, active: boolean) => api.patch<AdminAccount>(`/api/super/admins/${id}/active`, { active }),
 };
 
+/** System-wide integrations (SMS, Google Maps, Email) — read-only, set in the server's env file. */
+export interface IntegrationDetail {
+  label: string;
+  value: string;
+}
+export interface Integration {
+  key: string;
+  name: string;
+  purpose: string;
+  connected: boolean;
+  details: IntegrationDetail[];
+  envVars: string[];
+}
+export const superSettingsApi = {
+  integrations: () => api.get<Integration[]>("/api/super/settings/integrations"),
+};
+
 /** Forgot password (admins and technicians): email a 6-digit code, then reset with it. */
 export const passwordResetApi = {
   requestCode: (email: string) => api.post<{ message: string }>("/api/auth/forgot-password", { email }),

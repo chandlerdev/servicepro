@@ -90,7 +90,7 @@ export const NAV_GROUPS: NavGroup[] = [
         label: "Settings",
         icon: "⚙️",
         title: "Settings",
-        subtitle: "Company profile, office depot and integrations",
+        subtitle: "Company profile, office depot and connection status",
       },
     ],
   },
@@ -114,6 +114,18 @@ export const SUPER_NAV_GROUPS: NavGroup[] = [
         title: "City Master",
         subtitle: "One city list for every admin — their customers and routes pick from it",
         hidden: true, // reachable at /super/cities only
+      },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      {
+        href: "/super/settings",
+        label: "Settings",
+        icon: "⚙️",
+        title: "Settings",
+        subtitle: "Integrations shared by every admin",
       },
     ],
   },
