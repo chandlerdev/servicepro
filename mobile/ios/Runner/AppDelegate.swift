@@ -2,8 +2,12 @@ import Flutter
 import GoogleMaps
 import UIKit
 
+/// UIScene lifecycle (required by the current iOS SDK — apps without it are killed at launch):
+/// Info.plist `UIApplicationSceneManifest` uses Flutter's `FlutterSceneDelegate`, and plugins and our
+/// channel are registered when Flutter's engine is ready (`didInitializeImplicitFlutterEngine`).
+/// See https://flutter.dev/to/uiscene-migration
 @main
-@objc class AppDelegate: FlutterAppDelegate {
+@objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   /// True when Info.plist `GMSApiKey` holds a real key (see README).
   private var mapsConfigured = false
 
@@ -21,22 +25,23 @@ import UIKit
     NSLog(mapsConfigured
       ? "ServProWare: Google Maps key found — Map tab shows the map"
       : "ServProWare: NO Google Maps key (GMS_API_KEY in ios/Flutter/MapsKey.xcconfig) — Map tab shows the stop list")
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
 
-    GeneratedPluginRegistrant.register(with: self)
+  func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+    GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
 
-    if let registrar = self.registrar(forPlugin: "ServiceProsConfig") {
-      let channel = FlutterMethodChannel(
-        name: "servicepros/config", binaryMessenger: registrar.messenger())
-      channel.setMethodCallHandler { [weak self] call, result in
-        switch call.method {
-        case "isMapsConfigured":
-          result(self?.mapsConfigured ?? false)
-        default:
-          result(FlutterMethodNotImplemented)
-        }
+    // Tells the Dart side whether a Maps key is set (AppConfig.isMapsConfigured).
+    guard let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ServiceProsConfig") else { return }
+    let channel = FlutterMethodChannel(name: "servicepros/config", binaryMessenger: registrar.messenger())
+    let configured = mapsConfigured
+    channel.setMethodCallHandler { call, result in
+      switch call.method {
+      case "isMapsConfigured":
+        result(configured)
+      default:
+        result(FlutterMethodNotImplemented)
       }
     }
-
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

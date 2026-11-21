@@ -45,6 +45,31 @@
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+		<!-- UIScene lifecycle: required by the current iOS SDK (without it the app is killed at launch). -->
+		<key>UIApplicationSceneManifest</key>
+		<dict>
+			<key>UIApplicationSupportsMultipleScenes</key>
+			<false/>
+			<key>UISceneConfigurations</key>
+			<dict>
+				<key>UIWindowSceneSessionRoleApplication</key>
+				<array>
+					<dict>
+						<key>UISceneClassName</key>
+						<string>UIWindowScene</string>
+						<key>UISceneDelegateClassName</key>
+						<string>FlutterSceneDelegate</string>
+						<key>UISceneConfigurationName</key>
+						<string>flutter</string>
+						<key>UISceneStoryboardFile</key>
+						<string>Main</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+		<!-- The app only uses standard HTTPS: skips App Store Connect's export-compliance question. -->
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
 		<!-- Google Maps SDK key. Set GMS_API_KEY in ios/Flutter/MapsKey.xcconfig
 	     (git-ignored; see MapsKey.xcconfig.example). Empty = map tab shows a
 	     stop-list fallback instead of the embedded map. -->
